@@ -19,7 +19,7 @@
 
         /* Custom styles for the sliding mobile menu */
         .mobile-menu-slide-in {
-            transform: translateX(0) !important;
+            transform: translateX(0) !important; /* When activated, move to 0 translation (fully visible) */
         }
         .overlay-active {
             opacity: 0.5 !important;
@@ -92,59 +92,35 @@
     <nav id="main-navbar" class="p-4 shadow-xl fixed top-0 w-full z-50" style="background-color: rgba(0, 0, 0, 0.95); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);">
         <div class="container mx-auto flex justify-between items-center">
 
-            <!-- Hamburger Button (Mobile Only) - LEFT side on mobile -->
-            <button id="hamburger" class="text-white focus:outline-none p-2 rounded-md hover:bg-gray-700 md:hidden order-1">
+            <!-- Logo/Site Title - Always LEFT-aligned -->
+            <a href="index.html" class="rounded-md p-2 hover:bg-gray-700 transition duration-300 text-left order-1">
+                <img src="https://gamebin.odoo.com/web/image/website/1/logo/gamebin?unique=dd430da" alt="Gamebin Logo" class="h-8 md:h-10 w-auto inline-block">
+            </a>
+
+            <!-- Hamburger Button (Mobile Only) - RIGHT side on mobile -->
+            <button id="hamburger" class="text-white focus:outline-none p-2 rounded-md hover:bg-gray-700 md:hidden order-3">
                 <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
                 </svg>
             </button>
 
-            <!-- Logo/Site Title - CENTER on mobile, LEFT on desktop -->
-            <a href="index.html" class="rounded-md p-2 hover:bg-gray-700 transition duration-300
-                                         flex-grow text-center md:flex-none md:text-left order-2">
-                <img src="https://gamebin.odoo.com/web/image/website/1/logo/gamebin?unique=dd430da" alt="Gamebin Logo" class="h-8 md:h-10 w-auto inline-block md:inline">
-            </a>
-
-            <!-- Mobile Search Bar (Directly in Nav) - RIGHT side on mobile -->
-            <div id="mobile-nav-search-wrapper"
-                 class="relative md:hidden order-3 flex items-center ml-auto mr-4 group">
-                <input type="text" id="mobile-game-search" placeholder="Search Games..."
-                       class="flex-grow p-2 rounded-md bg-gray-700 text-white text-sm
-                              focus:outline-none focus:ring-2 focus:ring-red-500 pr-8
-                              w-8 transition-all duration-300 ease-in-out
-                              group-focus-within:w-48 group-focus-within:max-w-full">
-                <button id="mobile-search-button-in-nav" class="absolute right-2 top-1/2 -translate-y-1/2 text-gray-400 hover:text-white">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
-                </button>
-                <div id="mobile-search-results" class="absolute z-10 bg-gray-700 rounded-md mt-2 hidden max-h-48 overflow-y-auto top-full left-0 right-0"></div>
-            </div>
-
-
-            <!-- Desktop Navigation Links and Search Bar (Desktop/Tablet) -->
+            <!-- Desktop Navigation Links (Desktop/Tablet) - Search bar removed -->
             <div class="hidden md:flex items-center space-x-6 order-3">
                 <a href="index.html#home" class="text-white hover:text-red-400 font-medium transition duration-300 rounded-md p-2 hover:bg-gray-700">Home</a>
                 <a href="index.html#featured-games" class="text-red-400 font-medium transition duration-300 rounded-md p-2 hover:bg-gray-700">Games</a>
                 <a href="#" class="text-white hover:text-red-400 font-medium transition duration-300 rounded-md p-2 hover:bg-gray-700">Suggest a Game</a>
                 <a href="about.html" class="text-white hover:text-red-400 font-medium transition duration-300 rounded-md p-2 hover:bg-gray-700">About Us</a>
                 <a href="index.html#contact" class="text-white hover:text-red-400 font-medium transition duration-300 rounded-md p-2 hover:bg-gray-700">Contact Us</a>
-                <!-- Search Bar (Desktop/Tablet) -->
-                <div class="relative ml-6">
-                    <input type="text" id="desktop-game-search" placeholder="Search Games..." class="p-2 rounded-md bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-red-500 pr-10">
-                    <button id="desktop-search-button" class="absolute right-2 top-1/2 -translate-y-1/2 text-gray-400 hover:text-white">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
-                    </button>
-                    <div id="desktop-search-results" class="absolute z-10 w-full bg-gray-700 rounded-md mt-2 hidden max-h-48 overflow-y-auto"></div>
-                </div>
             </div>
         </div>
     </nav>
 
-    <!-- Mobile Navigation Menu (Slides from LEFT) -->
+    <!-- Mobile Navigation Menu (Slides from RIGHT) -->
     <div id="mobile-menu"
-         class="fixed top-0 bottom-0 left-0 w-64 bg-gray-900 transform -translate-x-full
+         class="fixed top-0 bottom-0 right-0 w-64 bg-gray-900 transform translate-x-full
                 transition-transform duration-300 ease-in-out z-50 p-4 shadow-lg md:hidden">
         <!-- Close button for the menu -->
-        <button id="close-menu" class="absolute top-4 left-4 text-white text-3xl focus:outline-none hover:text-gray-400">&times;</button>
+        <button id="close-menu" class="absolute top-4 right-4 text-white text-3xl focus:outline-none hover:text-gray-400">&times;</button>
         <div class="mt-16 space-y-4">
             <a href="index.html#home" class="block text-white hover:text-red-400 p-2 rounded-md hover:bg-gray-800 transition duration-300 text-left">Home</a>
             <a href="index.html#featured-games" class="block text-red-400 hover:text-red-400 p-2 rounded-md hover:bg-gray-800 transition duration-300 text-left">Games</a>
@@ -260,20 +236,11 @@
         const closeMenu = document.getElementById('close-menu');
         const menuOverlay = document.getElementById('menu-overlay');
 
-        const mobileNavSearchWrapper = document.getElementById('mobile-nav-search-wrapper');
-        const mobileGameSearchInput = document.getElementById('mobile-game-search');
-        const mobileSearchResults = document.getElementById('mobile-search-results');
-
-        const desktopGameSearchInput = document.getElementById('desktop-game-search');
-        const desktopSearchResults = document.getElementById('desktop-search-results');
-
         // Function to open mobile menu
         function openMobileMenu() {
             mobileMenu.classList.add('mobile-menu-slide-in');
             menuOverlay.classList.add('overlay-active');
             document.body.style.overflow = 'hidden';
-            mobileSearchResults.classList.add('hidden');
-            mobileGameSearchInput.blur(); // Remove focus from search bar
         }
 
         // Function to close mobile menu
@@ -293,25 +260,6 @@
             link.addEventListener('click', () => {
                 closeMobileMenu();
             });
-        });
-
-        // Search bar focus/blur logic (results will be empty as no dynamic search functionality is implemented)
-        mobileGameSearchInput.addEventListener('focus', () => { mobileSearchResults.classList.remove('hidden'); });
-        mobileGameSearchInput.addEventListener('blur', () => { setTimeout(() => { mobileSearchResults.classList.add('hidden'); }, 100); });
-
-        desktopGameSearchInput.addEventListener('focus', () => { desktopSearchResults.classList.remove('hidden'); });
-        desktopGameSearchInput.addEventListener('blur', () => { setTimeout(() => { desktopSearchResults.classList.add('hidden'); }, 100); });
-
-        // General click listener to hide dropdowns if clicked outside
-        document.addEventListener('click', (event) => {
-            // Check if the click is outside the mobile search wrapper
-            if (mobileNavSearchWrapper && !mobileNavSearchWrapper.contains(event.target)) {
-                mobileSearchResults.classList.add('hidden');
-            }
-            // Check if the click is outside the desktop search input and results
-            if (desktopGameSearchInput && desktopSearchResults && !desktopGameSearchInput.contains(event.target) && !desktopSearchResults.contains(event.target)) {
-                desktopSearchResults.classList.add('hidden');
-            }
         });
     </script>
 </body>
