@@ -17,8 +17,9 @@
         }
 
         /* Custom styles for the sliding mobile menu */
-        .mobile-menu-slide-in {
-            transform: translateX(0) !important;
+        /* By default, the menu is translated fully to the right (off-screen) */
+        .mobile-menu-slide-in { /* Reverted to generic name for clarity */
+            transform: translateX(0) !important; /* When active, slide it back to 0 */
         }
         .overlay-active {
             opacity: 0.5 !important;
@@ -64,68 +65,43 @@
     <nav id="main-navbar" class="p-4 shadow-xl fixed top-0 w-full z-50" style="background-color: rgba(0, 0, 0, 0.95); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);">
         <div class="container mx-auto flex justify-between items-center">
 
-            <!-- Hamburger Button (Mobile Only) - LEFT side on mobile -->
-            <button id="hamburger" class="text-white focus:outline-none p-2 rounded-md hover:bg-gray-700 md:hidden order-1">
+            <!-- Logo/Site Title - LEFT side on mobile and desktop -->
+            <a href="#" class="rounded-md p-2 hover:bg-gray-700 transition duration-300
+                                 flex-grow text-left md:flex-none order-1">
+                <img src="https://gamebin.odoo.com/web/image/website/1/logo/gamebin?unique=dd430da" alt="Gamebin Logo" class="h-8 md:h-10 w-auto inline-block md:inline">
+            </a>
+
+            <!-- Desktop Navigation Links (Desktop/Tablet Only) -->
+            <!-- On desktop, this flex container holds the nav links, aligned to the left after the logo -->
+            <div class="hidden md:flex items-center space-x-6 order-2 ml-6"> <!-- Added ml-6 for spacing -->
+                <a href="#home" class="text-white hover:text-red-400 font-medium transition duration-300 rounded-md p-2 hover:bg-gray-700">Home</a>
+                <a href="#featured-games" class="text-white hover:text-red-400 font-medium transition duration-300 rounded-md p-2 hover:bg-gray-700">Games</a>
+                <a href="#" class="text-white hover:text-red-400 font-medium transition duration-300 rounded-md p-2 hover:bg-gray-700">Suggest a Game</a>
+                <a href="#contact" class="text-white hover:text-red-400 font-medium transition duration-300 rounded-md p-2 hover:bg-gray-700">Contact Us</a>
+            </div>
+
+            <!-- Hamburger Button (Mobile Only) - RIGHT side on mobile -->
+            <!-- On mobile, order-3 combined with ml-auto pushes it to the right -->
+            <button id="hamburger" class="text-white focus:outline-none p-2 rounded-md hover:bg-gray-700 md:hidden order-3 ml-auto">
                 <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
                 </svg>
             </button>
-
-            <!-- Logo/Site Title - CENTER on mobile, LEFT on desktop -->
-            <a href="#" class="rounded-md p-2 hover:bg-gray-700 transition duration-300
-                                 flex-grow text-center md:flex-none md:text-left order-2">
-                <img src="https://gamebin.odoo.com/web/image/website/1/logo/gamebin?unique=dd430da" alt="Gamebin Logo" class="h-8 md:h-10 w-auto inline-block md:inline">
-            </a>
-
-            <!-- Mobile Search Bar (Directly in Nav) - RIGHT side on mobile -->
-            <!-- This div now acts as the expanding container for the search input -->
-            <div id="mobile-nav-search-wrapper"
-                 class="relative md:hidden order-3 flex items-center ml-auto mr-4 group"> <!-- ml-auto pushes it right, mr-4 provides gap -->
-                <input type="text" id="mobile-game-search" placeholder="Search Games..."
-                       class="flex-grow p-2 rounded-md bg-gray-700 text-white text-sm
-                              focus:outline-none focus:ring-2 focus:ring-red-500 pr-8
-                              w-8 transition-all duration-300 ease-in-out
-                              group-focus-within:w-48 group-focus-within:max-w-full"> <!-- Expands on focus -->
-                <button id="mobile-search-button-in-nav" class="absolute right-2 top-1/2 -translate-y-1/2 text-gray-400 hover:text-white">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
-                </button>
-                <!-- Search results are now positioned relative to this expanding bar -->
-                <div id="mobile-search-results" class="absolute z-10 bg-gray-700 rounded-md mt-2 hidden max-h-48 overflow-y-auto top-full left-0 right-0"></div>
-            </div>
-
-
-            <!-- Desktop Navigation Links and Search Bar (Desktop/Tablet) -->
-            <div class="hidden md:flex items-center space-x-6 order-3">
-                <a href="#home" class="text-white hover:text-red-400 font-medium transition duration-300 rounded-md p-2 hover:bg-gray-700">Home</a>
-                <!-- New menu items for desktop/tablet -->
-                <a href="#featured-games" class="text-white hover:text-red-400 font-medium transition duration-300 rounded-md p-2 hover:bg-gray-700">Games</a>
-                <a href="#" class="text-white hover:text-red-400 font-medium transition duration-300 rounded-md p-2 hover:bg-gray-700">Suggest a Game</a>
-                <a href="#contact" class="text-white hover:text-red-400 font-medium transition duration-300 rounded-md p-2 hover:bg-gray-700">Contact Us</a>
-                <!-- Search Bar (Desktop/Tablet) -->
-                <div class="relative ml-6">
-                    <input type="text" id="desktop-game-search" placeholder="Search Games..." class="p-2 rounded-md bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-red-500 pr-10">
-                    <button id="desktop-search-button" class="absolute right-2 top-1/2 -translate-y-1/2 text-gray-400 hover:text-white">
-                        <!-- Search Icon -->
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
-                    </button>
-                    <div id="desktop-search-results" class="absolute z-10 w-full bg-gray-700 rounded-md mt-2 hidden max-h-48 overflow-y-auto"></div>
-                </div>
-            </div>
         </div>
     </nav>
 
-    <!-- Mobile Navigation Menu (Slides from LEFT) -->
+    <!-- Mobile Navigation Menu (Slides from RIGHT) -->
     <div id="mobile-menu"
-         class="fixed top-0 bottom-0 left-0 w-64 bg-gray-900 transform -translate-x-full
+         class="fixed top-0 bottom-0 right-0 w-64 bg-gray-900 transform translate-x-full
                 transition-transform duration-300 ease-in-out z-50 p-4 shadow-lg md:hidden">
-        <!-- Close button for the menu -->
-        <button id="close-menu" class="absolute top-4 left-4 text-white text-3xl focus:outline-none hover:text-gray-400">&times;</button>
+        <!-- Close button for the menu - positioned on the top right -->
+        <button id="close-menu" class="absolute top-4 right-4 text-white text-3xl focus:outline-none hover:text-gray-400">&times;</button>
         <div class="mt-16 space-y-4">
+            <!-- Menu items are now explicitly text-left, though it was already default for block elements -->
             <a href="#home" class="block text-white hover:text-red-400 p-2 rounded-md hover:bg-gray-800 transition duration-300 text-left">Home</a>
             <a href="#featured-games" class="block text-white hover:text-red-400 p-2 rounded-md hover:bg-gray-800 transition duration-300 text-left">Games</a>
             <a href="#" class="block text-white hover:text-red-400 p-2 rounded-md hover:bg-gray-800 transition duration-300 text-left">Suggest a game</a>
             <a href="#contact" class="block text-white hover:text-red-400 p-2 rounded-md hover:bg-gray-800 transition duration-300 text-left">Contact Us</a>
-
         </div>
     </div>
 
@@ -203,50 +179,50 @@
             <div class="py-10 px-4 text-center bg-black text-white font-['Segoe UI', sans-serif]">
             <h2 class="text-2xl sm:text-3xl lg:text-4xl font-bold text-red-600 mb-6">Why Play on Game Bin?</h2>
             <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(230px, 1fr)); gap:30px; max-width:1200px; margin:0 auto;">
- 
+
              <div style="background:#111; border-radius:15px; padding:30px 20px; box-shadow:0 4px 20px rgba(255, 105, 0, 0.2);">
               <h3 style="font-size:1.4rem; margin-bottom:10px;">Classic + Modern</h3>
              <p style="font-size:1rem; color:#ccc;">From nostalgic legends to brand new bangers — we’ve got your vibe covered.</p>
            </div>
 
-    <div style="background:#111; border-radius:15px; padding:30px 20px; box-shadow:0 4px 20px rgba(0, 188, 212, 0.2);">
-      <h3 style="font-size:1.4rem; margin-bottom:10px;">Instant Fun</h3>
-      <p style="font-size:1rem; color:#ccc;">One click. No installs. You’re already playing before others find the charger.</p>
-    </div>
+     <div style="background:#111; border-radius:15px; padding:30px 20px; box-shadow:0 4px 20px rgba(0, 188, 212, 0.2);">
+       <h3 style="font-size:1.4rem; margin-bottom:10px;">Instant Fun</h3>
+       <p style="font-size:1.0rem; color:#ccc;">One click. No installs. You’re already playing before others find the charger.</p>
+     </div>
 
-    <div style="background:#111; border-radius:15px; padding:30px 20px; box-shadow:0 4px 20px rgba(76, 175, 80, 0.2);">
-      <h3 style="font-size:1.4rem; margin-bottom:10px;">Mobile Ready</h3>
-      <p style="font-size:1rem; color:#ccc;">Game Bin works on all screens — from phones to tablets to your grandma’s laptop.</p>
-    </div>
+     <div style="background:#111; border-radius:15px; padding:30px 20px; box-shadow:0 4px 20px rgba(76, 175, 80, 0.2);">
+       <h3 style="font-size:1.4rem; margin-bottom:10px;">Mobile Ready</h3>
+       <p style="font-size:1.0rem; color:#ccc;">Game Bin works on all screens — from phones to tablets to your grandma’s laptop.</p>
+     </div>
 
-    <div style="background:#111; border-radius:15px; padding:30px 20px; box-shadow:0 4px 20px rgba(255, 193, 7, 0.2);">
-      <h3 style="font-size:1.4rem; margin-bottom:10px;">No Pressure</h3>
-      <p style="font-size:1rem; color:#ccc;">No scores, no stress. Just chill gameplay anytime you need a break.</p>
-    </div>
+     <div style="background:#111; border-radius:15px; padding:30px 20px; box-shadow:0 4px 20px rgba(255, 193, 7, 0.2);">
+       <h3 style="font-size:1.4rem; margin-bottom:10px;">No Pressure</h3>
+       <p style="font-size:1.0rem; color:#ccc;">No scores, no stress. Just chill gameplay anytime you need a break.</p>
+     </div>
 
-    <div style="background:#111; border-radius:15px; padding:30px 20px; box-shadow:0 4px 20px rgba(156, 39, 176, 0.2);">
-      <h3 style="font-size:1.4rem; margin-bottom:10px;">Global Access</h3>
-      <p style="font-size:1rem; color:#ccc;">Play from anywhere, anytime. If you’ve got internet, you’ve got Game Bin.</p>
-    </div>
+     <div style="background:#111; border-radius:15px; padding:30px 20px; box-shadow:0 4px 20px rgba(156, 39, 176, 0.2);">
+       <h3 style="font-size:1.4rem; margin-bottom:10px;">Global Access</h3>
+       <p style="font-size:1.0rem; color:#ccc;">Play from anywhere, anytime. If you’ve got internet, you’ve got Game Bin.</p>
+     </div>
 
-    <div style="background:#111; border-radius:15px; padding:30px 20px; box-shadow:0 4px 20px rgba(233, 30, 99, 0.2);">
-      <h3 style="font-size:1.4rem; margin-bottom:10px;">Pure Vibes</h3>
-      <p style="font-size:1rem; color:#ccc;">Game Bin is built for fun. Nothing fancy, just pure good vibes and gameplay.</p>
-    </div>
+     <div style="background:#111; border-radius:15px; padding:30px 20px; box-shadow:0 4px 20px rgba(233, 30, 99, 0.2);">
+       <h3 style="font-size:1.4rem; margin-bottom:10px;">Pure Vibes</h3>
+       <p style="font-size:1.0rem; color:#ccc;">Game Bin is built for fun. Nothing fancy, just pure good vibes and gameplay.</p>
+     </div>
 
-    <div style="background:#111; border-radius:15px; padding:30px 20px; box-shadow:0 4px 20px rgba(63, 81, 181, 0.2);">
-      <h3 style="font-size:1.4rem; margin-bottom:10px;">Zero Sign-Up</h3>
-      <p style="font-size:1rem; color:#ccc;">No account needed. Jump in, play, and bounce anytime without strings attached.</p>
-    </div>
+     <div style="background:#111; border-radius:15px; padding:30px 20px; box-shadow:0 4px 20px rgba(63, 81, 181, 0.2);">
+       <h3 style="font-size:1.4rem; margin-bottom:10px;">Zero Sign-Up</h3>
+       <p style="font-size:1.0rem; color:#ccc;">No account needed. Jump in, play, and bounce anytime without strings attached.</p>
+     </div>
 
-    <div style="background:#111; border-radius:15px; padding:30px 20px; box-shadow:0 4px 20px rgba(255, 87, 34, 0.2);">
-      <h3 style="font-size:1.4rem; margin-bottom:10px;">Fresh Picks Often</h3>
-      <p style="font-size:1rem; color:#ccc;">New games added regularly — boredom doesn’t stand a chance here.</p>
-    </div>
+     <div style="background:#111; border-radius:15px; padding:30px 20px; box-shadow:0 4px 20px rgba(255, 87, 34, 0.2);">
+       <h3 style="font-size:1.4rem; margin-bottom:10px;">Fresh Picks Often</h3>
+       <p style="font-size:1.0rem; color:#ccc;">New games added regularly — boredom doesn’t stand a chance here.</p>
+     </div>
 
-  </div>
-</div>
-</section>
+   </div>
+ </div>
+ </section>
 
         <!-- What people say about us section (Testimonials) -->
         <section id="testimonials" class="mb-12 py-10 px-4 sm:px-6 lg:px-8 text-center bg-black-800">
@@ -292,7 +268,7 @@
 
     <!-- Footer -->
     <footer class="bg-gray-800 p-6 text-center text-gray-400 mt-auto shadow-inner">
-       
+        
         <div class="flex flex-wrap justify-center space-x-4 sm:space-x-6 mt-4">
             <a href="#contact" class="hover:text-white transition duration-300 text-sm sm:text-base">Contact Us</a>
             <a href="#" class="hover:text-white transition duration-300 text-sm sm:text-base">Privacy Policy</a>
@@ -307,62 +283,36 @@
         const closeMenu = document.getElementById('close-menu');
         const menuOverlay = document.getElementById('menu-overlay');
 
-        const mobileNavSearchWrapper = document.getElementById('mobile-nav-search-wrapper');
-        const mobileGameSearchInput = document.getElementById('mobile-game-search');
-        const mobileSearchResults = document.getElementById('mobile-search-results');
-
-        const desktopGameSearchInput = document.getElementById('desktop-game-search');
-        const desktopSearchResults = document.getElementById('desktop-search-results');
-
         // Testimonial Carousel Elements
         const testimonialCarousel = document.getElementById('testimonial-carousel');
         const carouselDotsContainer = document.getElementById('carousel-dots');
         const carouselItems = testimonialCarousel.querySelectorAll('.carousel-item');
         const totalItems = carouselItems.length;
 
-        // Function to open mobile menu
+        // Function to open mobile menu (slides from right)
         function openMobileMenu() {
-            mobileMenu.classList.add('mobile-menu-slide-in');
+            mobileMenu.classList.add('mobile-menu-slide-in'); // This class will now slide from right
             menuOverlay.classList.add('overlay-active');
-            document.body.style.overflow = 'hidden';
-            mobileSearchResults.classList.add('hidden');
-            mobileGameSearchInput.blur(); // Remove focus from search bar
+            document.body.style.overflow = 'hidden'; // Prevent scrolling when menu is open
         }
 
-        // Function to close mobile menu
+        // Function to close mobile menu (slides back to right)
         function closeMobileMenu() {
-            mobileMenu.classList.remove('mobile-menu-slide-in');
+            mobileMenu.classList.remove('mobile-menu-slide-in'); // This class will now slide to right
             menuOverlay.classList.remove('overlay-active');
-            document.body.style.overflow = '';
+            document.body.style.overflow = ''; // Restore scrolling
         }
 
         // Event listeners for opening and closing mobile menu
         hamburger.addEventListener('click', openMobileMenu);
-        // FIX: Changed 'closeMenu' to 'closeMobileMenu' for the close button click event
         closeMenu.addEventListener('click', closeMobileMenu);
         menuOverlay.addEventListener('click', closeMobileMenu);
 
+        // Close mobile menu when a link inside it is clicked
         mobileMenu.querySelectorAll('a').forEach(link => {
             link.addEventListener('click', () => {
                 closeMobileMenu();
             });
-        });
-
-        // Search bar focus/blur logic (results will be empty as no dynamic search)
-        mobileGameSearchInput.addEventListener('focus', () => { mobileSearchResults.classList.remove('hidden'); });
-        mobileGameSearchInput.addEventListener('blur', () => { setTimeout(() => { mobileSearchResults.classList.add('hidden'); }, 100); });
-
-        desktopGameSearchInput.addEventListener('focus', () => { desktopSearchResults.classList.remove('hidden'); });
-        desktopGameSearchInput.addEventListener('blur', () => { setTimeout(() => { desktopSearchResults.classList.add('hidden'); }, 100); });
-
-        // General click listener to hide dropdowns if clicked outside
-        document.addEventListener('click', (event) => {
-            if (!mobileNavSearchWrapper.contains(event.target)) {
-                mobileSearchResults.classList.add('hidden');
-            }
-            if (!desktopGameSearchInput.contains(event.target) && !desktopSearchResults.contains(event.target)) {
-                desktopSearchResults.classList.add('hidden');
-            }
         });
 
         // --- Testimonial Carousel Logic ---
@@ -383,7 +333,10 @@
         // Update active dot based on scroll position
         function updateActiveDot() {
             const scrollLeft = testimonialCarousel.scrollLeft;
-            const itemWidth = carouselItems[0].offsetWidth + (parseFloat(getComputedStyle(carouselItems[0]).marginLeft) * 2); // Item width + margins
+            // Get the actual width of a carousel item including its horizontal margins
+            const itemWidth = carouselItems[0].offsetWidth +
+                              parseFloat(getComputedStyle(carouselItems[0]).marginLeft) +
+                              parseFloat(getComputedStyle(carouselItems[0]).marginRight);
             const currentItemIndex = Math.round(scrollLeft / itemWidth);
 
             carouselDotsContainer.querySelectorAll('button').forEach((dot, index) => {
@@ -400,7 +353,9 @@
         // Scroll to a specific testimonial item
         function scrollToTestimonial(index) {
             // Calculate the correct scroll position considering item width and margins
-            const itemWidth = carouselItems[0].offsetWidth + (parseFloat(getComputedStyle(carouselItems[0]).marginLeft) * 2);
+            const itemWidth = carouselItems[0].offsetWidth +
+                              parseFloat(getComputedStyle(carouselItems[0]).marginLeft) +
+                              parseFloat(getComputedStyle(carouselItems[0]).marginRight);
             testimonialCarousel.scrollTo({
                 left: index * itemWidth,
                 behavior: 'smooth'
