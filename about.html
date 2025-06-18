@@ -25,6 +25,65 @@
             opacity: 0.5 !important;
             display: block !important;
         }
+
+        /* Custom style for the "Coming Soon" curtain overlay (not directly used on this page but kept for consistency) */
+        .curtain-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%; /* Cover full image initially for clip-path */
+            background-color: rgba(34, 139, 34, 0.8); /* Forest green, slightly transparent */
+            /* Simulating subtle folds with repeating gradients - adjusted for a softer look */
+            background-image:
+                repeating-linear-gradient(
+                    -45deg,
+                    rgba(255, 255, 255, 0.08) 0px, /* Softer highlights */
+                    rgba(255, 255, 255, 0.08) 1px,
+                    transparent 1px,
+                    transparent 15px /* Wider spacing for folds */
+                ),
+                repeating-linear-gradient(
+                    45deg,
+                    rgba(0, 0, 0, 0.15) 0px, /* Stronger shadows */
+                    rgba(0, 0, 0, 0.15) 1px,
+                    transparent 1px,
+                    transparent 15px
+                );
+            background-size: 30px 30px; /* Larger folds */
+            z-index: 10; /* Ensure it's above the image */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 0.75rem 0.75rem 0 0; /* Match parent's rounded-t-xl corners */
+
+            /* Add clip-path for wavy bottom edge, approximating 27% reveal */
+            clip-path: polygon(
+                0% 0%,
+                100% 0%,
+                100% 70%, /* Start of wave (highest point on the curtain, lowest reveal) */
+                95% 75%,
+                90% 72%,
+                85% 76%,
+                80% 71%,
+                75% 74%,
+                70% 70%,
+                65% 75%,
+                60% 72%,
+                55% 76%,
+                50% 71%,
+                45% 74%,
+                40% 70%,
+                35% 75%,
+                30% 72%,
+                25% 76%,
+                20% 71%,
+                15% 74%,
+                10% 70%,
+                5% 75%,
+                0% 70% /* End of wave (highest point on the curtain, lowest reveal) */
+            );
+        }
     </style>
 </head>
 <body class="min-h-screen flex flex-col">
@@ -33,59 +92,37 @@
     <nav id="main-navbar" class="p-4 shadow-xl fixed top-0 w-full z-50" style="background-color: rgba(0, 0, 0, 0.95); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);">
         <div class="container mx-auto flex justify-between items-center">
 
-            <!-- Hamburger Button (Mobile Only) - LEFT side on mobile -->
-            <button id="hamburger" class="text-white focus:outline-none p-2 rounded-md hover:bg-gray-700 md:hidden order-1">
+            <!-- Logo/Site Title - Always LEFT side on mobile/desktop -->
+            <a href="index.html" class="rounded-md p-2 hover:bg-gray-700 transition duration-300
+                                         flex-grow text-left md:flex-none order-1"> <!-- order-1 for left on mobile -->
+                <img src="https://gamebin.odoo.com/web/image/website/1/logo/gamebin?unique=dd430da" alt="Gamebin Logo" class="h-8 md:h-10 w-auto inline-block md:inline">
+            </a>
+
+            <!-- Hamburger Button (Mobile Only) - RIGHT side on mobile -->
+            <button id="hamburger" class="text-white focus:outline-none p-2 rounded-md hover:bg-gray-700 md:hidden order-2"> <!-- order-2 for right on mobile -->
                 <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
                 </svg>
             </button>
 
-            <!-- Logo/Site Title - CENTER on mobile, LEFT on desktop -->
-            <a href="index.html" class="rounded-md p-2 hover:bg-gray-700 transition duration-300
-                                         flex-grow text-center md:flex-none md:text-left order-2">
-                <img src="https://gamebin.odoo.com/web/image/website/1/logo/gamebin?unique=dd430da" alt="Gamebin Logo" class="h-8 md:h-10 w-auto inline-block md:inline">
-            </a>
 
-            <!-- Mobile Search Bar (Directly in Nav) - RIGHT side on mobile -->
-            <div id="mobile-nav-search-wrapper"
-                 class="relative md:hidden order-3 flex items-center ml-auto mr-4 group">
-                <input type="text" id="mobile-game-search" placeholder="Search Games..."
-                       class="flex-grow p-2 rounded-md bg-gray-700 text-white text-sm
-                              focus:outline-none focus:ring-2 focus:ring-red-500 pr-8
-                              w-8 transition-all duration-300 ease-in-out
-                              group-focus-within:w-48 group-focus-within:max-w-full">
-                <button id="mobile-search-button-in-nav" class="absolute right-2 top-1/2 -translate-y-1/2 text-gray-400 hover:text-white">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
-                </button>
-                <div id="mobile-search-results" class="absolute z-10 bg-gray-700 rounded-md mt-2 hidden max-h-48 overflow-y-auto top-full left-0 right-0"></div>
-            </div>
-
-
-            <!-- Desktop Navigation Links and Search Bar (Desktop/Tablet) -->
+            <!-- Desktop Navigation Links -->
             <div class="hidden md:flex items-center space-x-6 order-3">
                 <a href="index.html#home" class="text-white hover:text-red-400 font-medium transition duration-300 rounded-md p-2 hover:bg-gray-700">Home</a>
                 <a href="index.html#featured-games" class="text-white hover:text-red-400 font-medium transition duration-300 rounded-md p-2 hover:bg-gray-700">Games</a>
                 <a href="#" class="text-white hover:text-red-400 font-medium transition duration-300 rounded-md p-2 hover:bg-gray-700">Suggest a Game</a>
                 <a href="about.html" class="text-red-400 font-medium transition duration-300 rounded-md p-2 hover:bg-gray-700">About Us</a>
                 <a href="index.html#contact" class="text-white hover:text-red-400 font-medium transition duration-300 rounded-md p-2 hover:bg-gray-700">Contact Us</a>
-                <!-- Search Bar (Desktop/Tablet) -->
-                <div class="relative ml-6">
-                    <input type="text" id="desktop-game-search" placeholder="Search Games..." class="p-2 rounded-md bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-red-500 pr-10">
-                    <button id="desktop-search-button" class="absolute right-2 top-1/2 -translate-y-1/2 text-gray-400 hover:text-white">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
-                    </button>
-                    <div id="desktop-search-results" class="absolute z-10 w-full bg-gray-700 rounded-md mt-2 hidden max-h-48 overflow-y-auto"></div>
-                </div>
             </div>
         </div>
     </nav>
 
-    <!-- Mobile Navigation Menu (Slides from LEFT) -->
+    <!-- Mobile Navigation Menu (Slides from RIGHT) -->
     <div id="mobile-menu"
-         class="fixed top-0 bottom-0 left-0 w-64 bg-gray-900 transform -translate-x-full
+         class="fixed top-0 bottom-0 right-0 w-64 bg-gray-900 transform translate-x-full
                 transition-transform duration-300 ease-in-out z-50 p-4 shadow-lg md:hidden">
         <!-- Close button for the menu -->
-        <button id="close-menu" class="absolute top-4 left-4 text-white text-3xl focus:outline-none hover:text-gray-400">&times;</button>
+        <button id="close-menu" class="absolute top-4 right-4 text-white text-3xl focus:outline-none hover:text-gray-400">&times;</button>
         <div class="mt-16 space-y-4">
             <a href="index.html#home" class="block text-white hover:text-red-400 p-2 rounded-md hover:bg-gray-800 transition duration-300 text-left">Home</a>
             <a href="index.html#featured-games" class="block text-white hover:text-red-400 p-2 rounded-md hover:bg-gray-800 transition duration-300 text-left">Games</a>
@@ -100,51 +137,38 @@
          class="fixed inset-0 bg-black opacity-0 hidden z-40 transition-opacity duration-300 md:hidden"></div>
 
     <!-- Main Content for About Us Page -->
-    <main class="flex-grow pt-20 flex items-center justify-center">
-        <section class="w-full mx-auto py-16 px-4 sm:px-6 lg:px-8 text-left"> <!-- Changed text-center to text-left -->
-            <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white mb-8">About GameBin</h1> <!-- Increased heading size -->
-            <p class="text-xl sm:text-2xl leading-relaxed text-gray-200 mb-6"> <!-- Increased text size -->
-              Welcome to <strong class="text-white">Game Bin</strong> — where old-school charm meets new-age fun.
-            </p>
-            <p class="text-xl sm:text-2xl leading-relaxed text-gray-200 mb-6"> <!-- Increased text size -->
-             We created Game Bin with one simple goal: to bring back the joy of gaming — the kind that didn’t need expensive consoles, massive downloads, or hours of tutorials. Remember the days when you’d sneak in a quick game between classes, or kill time waiting for the bus with that one addictive classic on your phone? Yeah, we remember too. That’s the feeling we’re bringing back — and leveling up.
-            </p>
-            <p class="text-xl sm:text-2xl leading-relaxed text-gray-200 mb-6"> <!-- Increased text size -->
-                At Game Bin, you’ll find a curated collection of games that range from the nostalgic to the now. Whether it’s a familiar favorite that takes you on a trip down memory lane or a new discovery that instantly hooks you, there’s always something worth playing. From short, casual sessions to endless high-score chasing, we’ve packed this digital arcade with games that just feel good to play.
-            </p>
-            <p class="text-xl sm:text-2xl leading-relaxed text-gray-200"> <!-- Increased text size -->
-                What makes us different?
-            </p>
-            <ul class="text-left text-2xl sm:text-3xl leading-relaxed text-gray-200 mb-6 pl-8 list-disc list-inside"> <!-- Increased list item text size -->
-                <li>No logins, no downloads, no distractions.</li>
-                <li>Just click, play, and enjoy.</li>
-                <li>A blend of classic vibes and fresh experiences.</li>
-            </ul>
-            <p class="text-xl sm:text-2xl leading-relaxed text-gray-200 mb-6"> <!-- Increased text size -->
-                We believe gaming should be easy, fun, and accessible. That’s why Game Bin works on any device, in any browser, whenever you feel like playing. Whether you're on your lunch break, lying in bed, or just need a quick mental escape — we’ve got your back.
-            </p>
-            <p class="text-xl sm:text-2xl leading-relaxed text-gray-200 mb-6"> <!-- Increased text size -->
-                This isn’t about ultra-realistic graphics or complex gameplay. It’s about that <strong class="text-white">spark</strong> — the one you felt when gaming was pure, fun, and free. That’s the heart of Game Bin.
-            </p>
-            <p class="text-xl sm:text-2xl leading-relaxed text-gray-200 mb-8"> <!-- Increased text size -->
-                So dive in. Relive the past. Discover the new.
-                And most importantly — <strong class="text-white">have fun</strong>.
-            </p>
-            <a href="index.html" class="mt-8 inline-block px-8 py-3 bg-white text-red-600 text-lg font-semibold rounded-full shadow-lg hover:bg-gray-200 transition duration-300 transform hover:scale-105">
-                Explore Games
-            </a>
+    <main class="flex-grow pt-20 pb-8 px-4 sm:px-6 lg:px-8">
+        <section class="max-w-4xl mx-auto py-8">
+            <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white text-center mb-8">About Us</h1>
+
+            <div class="bg-gray-800 rounded-xl shadow-lg p-6 sm:p-8 lg:p-10 text-gray-300 leading-relaxed space-y-6">
+                <h2 class="text-xl sm:text-2xl font-bold text-white mb-4">About Game Bin</h2>
+                <p class="text-sm sm:text-base">Welcome to Game Bin — where old-school charm meets new-age fun.</p>
+                <p class="text-sm sm:text-base">We created Game Bin with one simple goal: to bring back the joy of gaming — the kind that didn’t need expensive consoles, massive downloads, or hours of tutorials. Remember the days when you’d sneak in a quick game between classes, or kill time waiting for the bus with that one addictive classic on your phone? Yeah, we remember too. That’s the feeling we’re bringing back — and leveling up.</p>
+                <p class="text-sm sm:text-base">At Game Bin, you’ll find a curated collection of games that range from the nostalgic to the now. Whether it’s a familiar favorite that takes you on a trip down memory lane or a new discovery that instantly hooks you, there’s always something worth playing. From short, casual sessions to endless high-score chasing, we’ve packed this digital arcade with games that just feel good to play.</p>
+
+                <h2 class="text-xl sm:text-2xl font-bold text-white mt-8 mb-4">What makes us different?</h2>
+                <ul class="list-disc list-inside ml-4 space-y-2 text-sm sm:text-base">
+                    <li>No logins, no downloads, no distractions.</li>
+                    <li>Just click, play, and enjoy.</li>
+                    <li>A blend of classic vibes and fresh experiences.</li>
+                </ul>
+                <p class="text-sm sm:text-base">We believe gaming should be easy, fun, and accessible. That’s why Game Bin works on any device, in any browser, whenever you feel like playing. Whether you're on your lunch break, lying in bed, or just need a quick mental escape — we’ve got your back.</p>
+                <p class="text-sm sm:text-base">This isn’t about ultra-realistic graphics or complex gameplay. It’s about that <strong>spark</strong> — the one you felt when gaming was pure, fun, and free. That’s the heart of Game Bin.</p>
+                <p class="text-sm sm:text-base">So dive in. Relive the past. Discover the new.</p>
+                <p class="text-sm sm:text-base">And most importantly — <strong>have fun.</strong></p>
+            </div>
         </section>
     </main>
 
     <!-- Footer -->
     <footer class="bg-gray-800 p-6 text-center text-gray-400 mt-auto shadow-inner">
-
         <div class="flex flex-wrap justify-center space-x-4 sm:space-x-6 mt-4">
             <a href="index.html#contact" class="hover:text-white transition duration-300 text-sm sm:text-base">Contact Us</a>
-            <a href="#" class="hover:text-white transition duration-300 text-sm sm:text-base">Privacy Policy</a>
-            <a href="#" class="hover:text-white transition duration-300 text-sm sm:text-base">Terms & Conditions</a>
+            <a href="privacy-policy.html" class="hover:text-white transition duration-300 text-sm sm:text-base">Privacy Policy</a>
+            <a href="terms-conditions.html" class="hover:text-white transition duration-300 text-sm sm:text-base">Terms & Conditions</a>
         </div>
-            <p class="text-sm sm:text-base">&copy; 2025 GameBin. All rights reserved.</p>
+        <p class="text-sm sm:text-base">&copy; 2025 GameBin. All rights reserved.</p>
     </footer>
 
     <script>
@@ -153,20 +177,11 @@
         const closeMenu = document.getElementById('close-menu');
         const menuOverlay = document.getElementById('menu-overlay');
 
-        const mobileNavSearchWrapper = document.getElementById('mobile-nav-search-wrapper');
-        const mobileGameSearchInput = document.getElementById('mobile-game-search');
-        const mobileSearchResults = document.getElementById('mobile-search-results');
-
-        const desktopGameSearchInput = document.getElementById('desktop-game-search');
-        const desktopSearchResults = document.getElementById('desktop-search-results');
-
         // Function to open mobile menu
         function openMobileMenu() {
             mobileMenu.classList.add('mobile-menu-slide-in');
             menuOverlay.classList.add('overlay-active');
             document.body.style.overflow = 'hidden';
-            mobileSearchResults.classList.add('hidden');
-            mobileGameSearchInput.blur(); // Remove focus from search bar
         }
 
         // Function to close mobile menu
@@ -181,27 +196,11 @@
         closeMenu.addEventListener('click', closeMobileMenu);
         menuOverlay.addEventListener('click', closeMobileMenu);
 
+        // Close mobile menu when a link inside it is clicked
         mobileMenu.querySelectorAll('a').forEach(link => {
             link.addEventListener('click', () => {
                 closeMobileMenu();
             });
-        });
-
-        // Search bar focus/blur logic (results will be empty as no dynamic search)
-        mobileGameSearchInput.addEventListener('focus', () => { mobileSearchResults.classList.remove('hidden'); });
-        mobileGameSearchInput.addEventListener('blur', () => { setTimeout(() => { mobileSearchResults.classList.add('hidden'); }, 100); });
-
-        desktopGameSearchInput.addEventListener('focus', () => { desktopSearchResults.classList.remove('hidden'); });
-        desktopGameSearchInput.addEventListener('blur', () => { setTimeout(() => { desktopSearchResults.classList.add('hidden'); }, 100); });
-
-        // General click listener to hide dropdowns if clicked outside
-        document.addEventListener('click', (event) => {
-            if (!mobileNavSearchWrapper.contains(event.target)) {
-                mobileSearchResults.classList.add('hidden');
-            }
-            if (!desktopGameSearchInput.contains(event.target) && !desktopSearchResults.contains(event.target)) {
-                desktopSearchResults.classList.add('hidden');
-            }
         });
     </script>
 </body>
