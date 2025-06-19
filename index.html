@@ -62,7 +62,14 @@
     </style>
 </head>
 <body class="min-h-screen flex flex-col">
+    
+<!-- DIV OF DOWNLOAD-->
+    <div id="android-download-button" style="display: none;">
+    <button>Download App for Android</button>
+</div>
+<!--div of download end-->
 
+    
     <!-- Navigation Bar -->
     <nav id="main-navbar" class="p-4 shadow-xl fixed top-0 w-full z-50" style="background-color: rgba(0, 0, 0, 0.95); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);">
         <div class="container mx-auto flex justify-between items-center">
@@ -376,7 +383,53 @@
             });
         });
 
+        
+//DOWNLAOD BUTTON 
+        document.addEventListener('DOMContentLoaded', function() {
+    const downloadButtonDiv = document.getElementById('android-download-button');
 
+    // Function to check if it's an Android device
+    function isAndroid() {
+        return /Android/i.test(navigator.userAgent);
+    }
+
+    // Function to check if it's *not* an iPhone/iPad
+    function isNotIOS() {
+        return !/iPhone|iPad|iPod/i.test(navigator.userAgent);
+    }
+
+    // Function to check if it's not a PWA
+    function isNotPWA() {
+        // Modern PWA detection (display-mode: standalone)
+        if (window.matchMedia('(display-mode: standalone)').matches) {
+            return false; // It is a PWA
+        }
+        // Fallback for older iOS PWA detection (less reliable for Android)
+        if (navigator.standalone) {
+            return false; // It is a PWA
+        }
+        return true; // Not a PWA
+    }
+
+    // Function to check if it's not a desktop (more general)
+    function isNotDesktop() {
+        // This is a rough check; more robust methods involve screen size or more user agent parsing
+        return !/Macintosh|Windows|Linux x86_64/i.test(navigator.userAgent) && !isTablet();
+    }
+
+    // A simple tablet detection (can be more sophisticated)
+    function isTablet() {
+        return (isAndroid() && !/Mobile/i.test(navigator.userAgent)) || /iPad|Tablet/i.test(navigator.userAgent);
+    }
+
+
+    // Combine all conditions
+    if (isAndroid() && isNotIOS() && isNotPWA() && isNotDesktop() && !isTablet()) {
+        downloadButtonDiv.style.display = 'block'; // Show the div
+    }
+});
+
+  //DOWNLAOD BUTTON end      
 
         
   if ('serviceWorker' in navigator) {
