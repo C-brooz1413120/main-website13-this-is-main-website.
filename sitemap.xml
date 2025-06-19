@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+  <!-- Main Site -->
+  <url>
+    <loc>https://gamebin.online/</loc>
+  </url>
+
+  <!-- Subdomains -->
+  <url>
+    <loc>https://about.gamebin.online/</loc>
+  </url>
+  <url>
+    <loc>https://games.gamebin.online/</loc>
+  </url>
+  <url>
+    <loc>https://privacy-policy.gamebin.online/</loc>
+  </url>
+  <url>
+    <loc>https://terms-and-conditions.gamebin.online/</loc>
+  </url>
+
+</urlset>
