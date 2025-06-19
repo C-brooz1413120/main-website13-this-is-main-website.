@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="manifest" href="/manifest.json">
+    <link rel="stylesheet" href="style.css">
     <title>GameBin</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -64,9 +65,11 @@
 <body class="min-h-screen flex flex-col">
     
 <!-- DIV OF DOWNLOAD-->
-    <div id="android-download-button" style="display: none;">
-    <button>Download App for Android</button>
-</div>
+      <div id="android-download-button">
+        <p>Enhance your experience!</p>
+        <button onclick="window.open('YOUR_ANDROID_APP_DOWNLOAD_LINK', '_blank');">Download Our Android App</button>
+        <p style="font-size: 0.8em;">(Only for Android Phones)</p>
+    </div>
 <!--div of download end-->
 
     
@@ -383,55 +386,8 @@
             });
         });
 
-        
-//DOWNLAOD BUTTON 
-        document.addEventListener('DOMContentLoaded', function() {
-    const downloadButtonDiv = document.getElementById('android-download-button');
 
-    // Function to check if it's an Android device
-    function isAndroid() {
-        return /Android/i.test(navigator.userAgent);
-    }
-
-    // Function to check if it's *not* an iPhone/iPad
-    function isNotIOS() {
-        return !/iPhone|iPad|iPod/i.test(navigator.userAgent);
-    }
-
-    // Function to check if it's not a PWA
-    function isNotPWA() {
-        // Modern PWA detection (display-mode: standalone)
-        if (window.matchMedia('(display-mode: standalone)').matches) {
-            return false; // It is a PWA
-        }
-        // Fallback for older iOS PWA detection (less reliable for Android)
-        if (navigator.standalone) {
-            return false; // It is a PWA
-        }
-        return true; // Not a PWA
-    }
-
-    // Function to check if it's not a desktop (more general)
-    function isNotDesktop() {
-        // This is a rough check; more robust methods involve screen size or more user agent parsing
-        return !/Macintosh|Windows|Linux x86_64/i.test(navigator.userAgent) && !isTablet();
-    }
-
-    // A simple tablet detection (can be more sophisticated)
-    function isTablet() {
-        return (isAndroid() && !/Mobile/i.test(navigator.userAgent)) || /iPad|Tablet/i.test(navigator.userAgent);
-    }
-
-
-    // Combine all conditions
-    if (isAndroid() && isNotIOS() && isNotPWA() && isNotDesktop() && !isTablet()) {
-        downloadButtonDiv.style.display = 'block'; // Show the div
-    }
-});
-
-  //DOWNLAOD BUTTON end      
-
-        
+    // App    
   if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
       navigator.serviceWorker.register('/service-worker.js')
@@ -444,6 +400,6 @@
     });
   }
 </script>
-    
+     <script src="script.js"></script>
 </body>
 </html>
