@@ -91,8 +91,8 @@
             <!-- Desktop Navigation Links (Desktop/Tablet Only) -->
             <!-- On desktop, this flex container holds the nav links, aligned to the left after the logo -->
             <div class="hidden md:flex items-center space-x-6 order-2 ml-6"> <!-- Added ml-6 for spacing -->
-                <a href="#home" class="text-white hover:text-red-400 font-medium transition duration-300 rounded-md p-2 hover:bg-gray-700">Home</a>
-                <a href="games" class="text-white hover:text-red-400 font-medium transition duration-300 rounded-md p-2 hover:bg-gray-700">Games</a>
+                <a href="/" class="text-white hover:text-red-400 font-medium transition duration-300 rounded-md p-2 hover:bg-gray-700">Home</a>
+                <a href="games.gamebin.online" class="text-white hover:text-red-400 font-medium transition duration-300 rounded-md p-2 hover:bg-gray-700">Games</a>
                 <a href="#" class="text-white hover:text-red-400 font-medium transition duration-300 rounded-md p-2 hover:bg-gray-700">Suggest a Game</a>
                 <a href="#contact" class="text-white hover:text-red-400 font-medium transition duration-300 rounded-md p-2 hover:bg-gray-700">Contact Us</a>
             </div>
@@ -115,8 +115,8 @@
         <button id="close-menu" class="absolute top-4 right-4 text-white text-3xl focus:outline-none hover:text-gray-400">&times;</button>
         <div class="mt-16 space-y-4">
             <!-- Menu items are now explicitly text-left, though it was already default for block elements -->
-            <a href="#home" class="block text-white hover:text-red-400 p-2 rounded-md hover:bg-gray-800 transition duration-300 text-left">Home</a>
-            <a href="games.html" class="block text-white hover:text-red-400 p-2 rounded-md hover:bg-gray-800 transition duration-300 text-left">Games</a>
+            <a href="/" class="block text-white hover:text-red-400 p-2 rounded-md hover:bg-gray-800 transition duration-300 text-left">Home</a>
+            <a href="games.gamebin.online" class="block text-white hover:text-red-400 p-2 rounded-md hover:bg-gray-800 transition duration-300 text-left">Games</a>
             <a href="#" class="block text-white hover:text-red-400 p-2 rounded-md hover:bg-gray-800 transition duration-300 text-left">Suggest a game</a>
             <a href="#contact" class="block text-white hover:text-red-400 p-2 rounded-md hover:bg-gray-800 transition duration-300 text-left">Contact Us</a>
         </div>
@@ -140,12 +140,15 @@
                 From classics to new hits — all your favorite online games, 100% free and always fun.
             </p>
             <!-- Play Now Button with icon -->
+            <a href="https://games.gamebin.online" target="_blank" rel="noopener noreferrer">
             <button class="flex items-center justify-center mx-auto px-6 py-3 sm:px-8 sm:py-4 bg-red-600 text-base sm:text-lg font-semibold rounded-full shadow-lg hover:bg-red-700 transition duration-300 transform hover:scale-105 mb-4">
                 <svg class="w-5 h-5 sm:w-6 sm:h-6 mr-2" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path d="M8 5v14l11-7z"/>
                 </svg>
                 Play Now
             </button>
+            </a>
+            <a href="https://games.gamebin.online" target="_blank" rel="noopener noreferrer">
             <button class="flex items-center justify-center mx-auto px-5 py-2 sm:px-8 sm:py-4 bg-transparent border border-white text-sm sm:text-lg font-semibold rounded-full shadow-lg hover:bg-gray-800 transition duration-300 transform hover:scale-105">
                 <svg class="w-5 h-5 sm:w-6 sm:h-6 mr-2" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/>
@@ -155,15 +158,18 @@
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
                 </svg>
             </button>
+            </a>
         </section>
 
         <!-- Featured Games Section -->
         <section id="featured-games" class="mb-12 py-16 px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center mb-8">
                 <h2 class="text-3xl sm:text-4xl font-bold text-red-600 text-left">Featured Games</h2>
+                <a href="https://games.gamebin.online" target="_blank" rel="noopener noreferrer">
                 <button class="px-4 py-2 bg-red-600 text-white text-sm sm:text-base font-semibold rounded-full hover:bg-red-700 transition duration-300 transform hover:scale-105">
                     View All
                 </button>
+                </a>
             </div>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 <!-- Featured Game Card 1 -->
@@ -171,7 +177,9 @@
                     <img src="snake classic image.png" alt="Snake Classic" class="w-full aspect-square object-cover rounded-md mb-4 group-hover:scale-105 transition-transform duration-300">
                     <h3 class="text-xl sm:text-2xl font-semibold text-white mb-2">Snake Classic</h3>
                     <p class="text-sm sm:text-base text-gray-400 mb-8">Control your snake, eat the food, and grow longer — but don’t crash into yourself or the walls. Simple to play, hard to master. How long can you survive?</p>
+                    <a href="https://snake.gamebin.online" target="_blank" rel="noopener noreferrer">
                     <button class="absolute bottom-4 right-4 px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 transition duration-300 text-sm sm:text-base opacity-100 translate-y-0 md:opacity-0 md:group-hover:opacity-100 md:group-hover:translate-y-0 md:translate-y-2">Play Now</button>
+                    </a>
                 </div>
 
                 <!-- Featured Game Card 2 -->
@@ -179,7 +187,9 @@
                     <img src="Buzzy Bounce Image.png" alt="Buzzy Bounce" class="w-full aspect-square object-cover rounded-md mb-4 group-hover:scale-105 transition-transform duration-300">
                     <h3 class="text-xl sm:text-2xl font-semibold text-white mb-2">Buzzy Bounce</h3>
                     <p class="text-sm sm:text-base text-gray-400 mb-8">Control Buzzy with a single tap. Navigate through obstacles, beat your high score, and test your reflexes in this fast-paced arcade game.</p>
+                       <a href="https://buzzybounce.gamebin.online/" target="_blank" rel="noopener noreferrer">
                     <button class="absolute bottom-4 right-4 px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 transition duration-300 text-sm sm:text-base opacity-100 translate-y-0 md:opacity-0 md:group-hover:opacity-100 md:group-hover:translate-y-0 md:translate-y-2">Play Now</button>
+                       </a>
                 </div>
 
                 <!-- Featured Game Card 3 -->
@@ -187,7 +197,9 @@
                     <img src="TTT.png" alt="Tic-Tac-Toe" class="w-full aspect-square object-cover rounded-md mb-4 group-hover:scale-105 transition-transform duration-300">
                     <h3 class="text-xl sm:text-2xl font-semibold text-white mb-2">Tic-Tac-Toe (X & O)</h3>
                     <p class="text-sm sm:text-base text-gray-400 mb-8">Get three in a row—horizontally, vertically, or diagonally—before your opponent does. Quick, clever, and endlessly addictive! </p>
+                    <a href="https://tictactoe.gamebin.online" target="_blank" rel="noopener noreferrer">
                     <button class="absolute bottom-4 right-4 px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 transition duration-300 text-sm sm:text-base opacity-100 translate-y-0 md:opacity-0 md:group-hover:opacity-100 md:group-hover:translate-y-0 md:translate-y-2">Play Now</button>
+                    </a>
                 </div>
             </div>
         </section>
@@ -287,9 +299,11 @@
         
         <div class="flex flex-wrap justify-center space-x-4 sm:space-x-6 mt-4">
             <a href="#contact" class="hover:text-white transition duration-300 text-sm sm:text-base">Contact Us</a>
-            <a href="#" class="hover:text-white transition duration-300 text-sm sm:text-base">Privacy Policy</a>
-            <a href="#" class="hover:text-white transition duration-300 text-sm sm:text-base">Terms & Conditions</a>
+            <a href="https://about.gamebin.online" class="hover:text-white transition duration-300 text-sm sm:text-base">About Us</a>
+            <a href="https://privacy-policy.gamebin.online" class="hover:text-white transition duration-300 text-sm sm:text-base">Privacy Policy</a>
+            <a href="https://terms-and-conditions.gamebin.online/" class="hover:text-white transition duration-300 text-sm sm:text-base">Terms & Conditions</a>
         </div>
+        <br>
             <p class="text-sm sm:text-base">&copy; 2025 GameBin. All rights reserved.</p>
     </footer>
 
