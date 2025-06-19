@@ -5,7 +5,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="manifest" href="/manifest.json">
-    <link rel="stylesheet" href="style.css">
     <title>GameBin</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -131,17 +130,6 @@
                 </svg>
                 Play Now
             </button>
-             <!-- Downlaod Button -->
-            <button id="pwaInstallButton" style="display:none;
-                                      background: transparent;
-                                      border: 1px solid white;
-                                      color: white;
-                                      padding: 10px 20px;
-                                      font-size: 16px;
-                                      cursor: pointer;">
-                Play Now
-            </button>
-            <!-- Suggest a Game Button -->
             <button class="flex items-center justify-center mx-auto px-5 py-2 sm:px-8 sm:py-4 bg-transparent border border-white text-sm sm:text-lg font-semibold rounded-full shadow-lg hover:bg-gray-800 transition duration-300 transform hover:scale-105">
                 <svg class="w-5 h-5 sm:w-6 sm:h-6 mr-2" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/>
@@ -398,70 +386,7 @@
           console.error('Service Worker registration failed:', error);
         });
     });
-  }
-
-
-        //APP DOWNLOAD
-
-        let deferredPrompt;
-const installButton = document.getElementById('pwaInstallButton');
-
-// 1. Listen for the beforeinstallprompt event
-// This event fires when the browser determines the PWA is installable.
-window.addEventListener('beforeinstallprompt', (e) => {
-  // Prevent the default browser install prompt (like the mini-infobar on Android)
-  e.preventDefault();
-  // Store the event so we can trigger it later
-  deferredPrompt = e;
-  // Show your custom install button
-  if (installButton) {
-    installButton.style.display = 'block'; // Make the button visible
-  }
-});
-
-// 2. Handle the click on your custom install button
-if (installButton) {
-  installButton.addEventListener('click', async () => {
-    if (deferredPrompt) {
-      // Hide the button immediately after click
-      installButton.style.display = 'none';
-
-      // Show the browser's install prompt
-      deferredPrompt.prompt();
-
-      // Wait for the user to respond to the prompt
-      const { outcome } = await deferredPrompt.userChoice;
-
-      // Optional: Log the outcome for analytics or debugging
-      console.log(`User response to the install prompt: ${outcome}`);
-
-      // Clear the deferredPrompt as it's a one-time use event
-      deferredPrompt = null;
-    }
-  });
-}
-
-// 3. Hide the button if the app is already installed/running as a PWA
-// This checks if the PWA is running in standalone mode (installed app).
-window.addEventListener('appinstalled', () => {
-  // If the app gets installed (e.g., via our prompt), hide the button
-  if (installButton) {
-    installButton.style.display = 'none';
-  }
-});
-
-// Initial check on page load: If already running as standalone, hide the button.
-// THIS IS THE PART YOU WERE ASKING ABOUT. IT IS ALREADY INCLUDED.
-if (window.matchMedia('(display-mode: standalone)').matches || navigator.standalone) {
-  // `display-mode: standalone` for modern browsers (Android, Desktop PWAs)
-  // `navigator.standalone` for older iOS PWA detection
-  if (installButton) {
-    installButton.style.display = 'none';
-  }
-}
-
-        //APP DOWNLAOD END
-        
+  }    
 </script>
 </body>
 </html>
