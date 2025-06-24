@@ -86,37 +86,6 @@
   margin-bottom: 7px;
   margin-top: 4px;
 }
-	    .ad-text1 {
-  color: #666866;
-  font-size: 7px;
-  font-weight: bold;
-  text-align: right;
-  margin-bottom: 7px;
-  margin-top: 4px;
-}
-	    
-	    /* Styles for all devices initially (or for desktop-first approach) */
-        .mobile-only-ad {
-            display: none; /* Hide the ad by default */
-        }
-
-        /* Media Query for Mobile Devices */
-        @media only screen and (max-width: 767px) { /* Adjust breakpoint as needed */
-            .mobile-only-ad {
-                display: block; /* Show the ad on screens 767px wide or less */
-            }
-        }
-
-        /* If you want to be super explicit about hiding on larger screens (though display:none is default) */
-        @media only screen and (min-width: 768px) {
-            .mobile-only-ad {
-                display: none;
-            }
-        }
-
-
-
-
 	     /* Styles for all devices initially (or for desktop-first approach) */
         .ad-text {
             display: none; /* Hide the ad by default */
@@ -136,7 +105,36 @@
             }
         }
 
+
+	    	    .ad-text1 {
+  color: #666866;
+  font-size: 7px;
+  font-weight: bold;
+  text-align: right;
+  margin-bottom: 7px;
+  margin-top: 4px;
+}
+
 	    
+	   /* Styles for all devices initially (or for desktop-first approach) */
+        .mobile-only-ad {
+            display: none; /* Hide the ad by default */
+        }
+
+        /* Media Query for Mobile Devices */
+        @media only screen and (max-width: 767px) { /* Adjust breakpoint as needed */
+            .mobile-only-ad {
+                display: block; /* Show the ad on screens 767px wide or less */
+            }
+        }
+
+        /* If you want to be super explicit about hiding on larger screens (though display:none is default) */
+        @media only screen and (min-width: 768px) {
+            .mobile-only-ad {
+                display: none;
+            }
+        }
+   
     </style>
 </head>
     <body class="min-h-screen flex flex-col">   
