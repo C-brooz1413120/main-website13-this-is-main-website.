@@ -105,6 +105,28 @@
             }
         } */
 
+
+
+
+	     /* Styles for all devices initially (or for desktop-first approach) */
+        .ad-text {
+            display: none; /* Hide the ad by default */
+        }
+
+        /* Media Query for Mobile Devices */
+        @media only screen and (max-width: 767px) { /* Adjust breakpoint as needed */
+            .ad-text {
+                display: block; /* Show the ad on screens 767px wide or less */
+            }
+        }
+
+        /* If you want to be super explicit about hiding on larger screens (though display:none is default) */
+        @media only screen and (min-width: 768px) {
+            .ad-text {
+                display: none;
+            }
+        } */
+
 	    
     </style>
 </head>
