@@ -88,6 +88,86 @@
                 max-width: calc(33.333% - 1.333rem);
             }
         }
+
+/* css cookie banner start */
+.cookie-banner {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background-color: #1e1e1e;
+  color: white;
+  padding: 15px;
+  font-size: 14px;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.3);
+}
+
+.cookie-banner a {
+  color: #0af;
+  text-decoration: underline;
+}
+
+.cookie-buttons {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.cookie-buttons button {
+  background-color: #0af;
+  border: none;
+  color: white;
+  padding: 8px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.cookie-buttons button:hover {
+  background-color: #0088cc;
+}
+
+/* Preferences Modal */
+.preferences-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.6);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 10000;
+}
+
+.preferences-content {
+  background-color: white;
+  color: black;
+  padding: 20px;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 400px;
+}
+
+.preferences-content h3 {
+  margin-top: 0;
+}
+
+.preferences-content button {
+  margin-top: 15px;
+  background-color: #0af;
+  color: white;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+/* css cookie banner end*/
+	    
     </style>
 </head>
     <body class="min-h-screen flex flex-col">   
@@ -318,6 +398,44 @@
             <p class="text-sm sm:text-base">&copy; 2025 GameBin. All rights reserved.</p>
     </footer>
 
+	    <!--COOKIE BANNER HTML STARTING-->
+<div id="cookie-banner" class="cookie-banner">
+  <div class="cookie-text">
+    <p>
+      We use cookies to personalize content, analyze traffic, and improve your experience. You can choose which cookies you allow. 
+      <a href="/privacy-policy.html" target="_blank">Learn more</a>.
+    </p>
+  </div>
+  <div class="cookie-buttons">
+    <button id="accept-all">Accept All</button>
+    <button id="accept-essential">Accept Essential Only</button>
+    <button id="manage-preferences">Manage Preferences</button>
+  </div>
+</div>
+
+<!-- Optional Preferences Modal -->
+<div id="preferences-modal" class="preferences-modal">
+  <div class="preferences-content">
+    <h3>Cookie Preferences</h3>
+    <p><strong>Essential Cookies</strong> – Always on (Required for site functionality)</p>
+    <p>
+      <label>
+        <input type="checkbox" id="analytics-consent" checked>
+        Allow analytics cookies
+      </label>
+    </p>
+    <p>
+      <label>
+        <input type="checkbox" id="ads-consent" checked>
+        Allow advertising cookies
+      </label>
+    </p>
+    <button id="save-preferences">Save Preferences</button>
+  </div>
+</div>
+<!--COOKIE BANNER ENDING HTML-->
+
+	    
     <script>
         const hamburger = document.getElementById('hamburger');
         const mobileMenu = document.getElementById('mobile-menu');
@@ -428,6 +546,48 @@
         });
     });
   }    
+
+
+// JS COOKIE BANNER START
+  function hideBanner() {
+    document.getElementById('cookie-banner').style.display = 'none';
+  }
+
+  function saveConsent(consent) {
+    localStorage.setItem('cookieConsent', JSON.stringify(consent));
+  }
+
+  document.addEventListener('DOMContentLoaded', function () {
+    const consent = JSON.parse(localStorage.getItem('cookieConsent'));
+
+    if (!consent) {
+      document.getElementById('cookie-banner').style.display = 'block';
+    }
+
+    document.getElementById('accept-all').onclick = function () {
+      saveConsent({ essential: true, analytics: true, ads: true });
+      hideBanner();
+    };
+
+    document.getElementById('accept-essential').onclick = function () {
+      saveConsent({ essential: true, analytics: false, ads: false });
+      hideBanner();
+    };
+
+    document.getElementById('manage-preferences').onclick = function () {
+      document.getElementById('preferences-modal').style.display = 'flex';
+    };
+
+    document.getElementById('save-preferences').onclick = function () {
+      const analytics = document.getElementById('analytics-consent').checked;
+      const ads = document.getElementById('ads-consent').checked;
+      saveConsent({ essential: true, analytics: analytics, ads: ads });
+      document.getElementById('preferences-modal').style.display = 'none';
+      hideBanner();
+    };
+  });
+//COOKIE BANNER END JS
+
     </script>	    
 </body>
 </html>
